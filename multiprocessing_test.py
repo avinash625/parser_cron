@@ -6,7 +6,7 @@ import platform
 process = subprocess.Popen("whoami",stdout = subprocess.PIPE)
 username, error = process.communicate()
 baseFolderPathUbuntu = "/home/"+ (username.strip()).decode('utf-8') +"/WB/DarknetMarketParsers/"
-baseFolderPathMac = "/Users/"+(username.strip()).decode("utf-8")+"/Documents/DarknetMarketParsers/"
+baseFolderPathMac = "/Users/"+(username.strip()).decode("utf-8")+"/Documents/ebcs_workspace/DarknetMarketParsers/"
 parserFolderPath = ""
 logfilePath = ""
 def writelog(message):
@@ -25,9 +25,9 @@ elif platform.system() == "Linux":
 
 
 def runParser(fileName):
-    print('worker ID for filename: ' + fileName + ' is ', os.getpid())
+    # print('worker ID for filename: ' + fileName + ' is ', os.getpid())
     status = os.WEXITSTATUS(os.system("python3 " + parserFolderPath +fileName))
-    print("worker ID for "+ fileName +"  exited with status ", status)
+    # print("worker ID for "+ fileName +"  exited with status ", status)
     return (fileName, status)
 
 if __name__ == "__main__":
