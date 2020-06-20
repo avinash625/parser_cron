@@ -31,6 +31,8 @@ def runParser(fileName):
     return (fileName, status)
 
 if __name__ == "__main__":
+    ## Do not change the following order. First we need to parse vendor profile, product desc, product rating and then
+    ## vendor ratings. This is because vendor ID is required for PD, PR and VR.
 
     ## for vendor profiles
     vendorProfileRelatedFiles = ["vendor_profiles_bitbazar.py", "vendor_profiles_whitehouse.py", "vendor_profiles_agartha.py"]
@@ -43,7 +45,7 @@ if __name__ == "__main__":
     ## for product descriptions
     productDescriptionsRelatedFiles = ["product_descriptions_agartha.py", "product_descriptions_bitbazer.py"]
     pd = multiprocessing.Pool()
-    resultPD = pd.map(runParser, productDescriptionsRelatedFiles)
+    result = pd.map(runParser, productDescriptionsRelatedFiles)
     print("*************************product descriptions******************************")
     for record in result:
         print(record[0] + "\t" + str(record[1]))
@@ -51,7 +53,7 @@ if __name__ == "__main__":
     ## for product ratings
     productRatingsRelatedFiles = []
     pr = multiprocessing.Pool()
-    resultPR = pr.map(runParser, productDescriptionsRelatedFiles)
+    result = pr.map(runParser, productDescriptionsRelatedFiles)
     print("*************************product descriptions******************************")
     for record in result:
         print(record[0] + "\t" + str(record[1]))
@@ -60,7 +62,7 @@ if __name__ == "__main__":
     vendorRatingRelatedFiles = ["vendor_ratings_bitbazar.py",
                                    "vendor_ratings_whitehouse.py", "vendor_ratings_apollon.py"]
     vr = multiprocessing.Pool()
-    resultVR = vr.map(runParser, vendorProfileRelatedFiles)
+    result = vr.map(runParser, vendorProfileRelatedFiles)
     print("*************************vendor profiles******************************")
     for record in result:
         print(record[0] + "\t" + str(record[1]))
