@@ -6,7 +6,7 @@ import platform
 process = subprocess.Popen("whoami",stdout = subprocess.PIPE)
 username, error = process.communicate()
 baseFolderPathUbuntu = "/home/"+ (username.strip()).decode('utf-8') +"/WB/DarknetMarketParsers/"
-baseFolderPathMac = "/Users/avi/Documents/DarknetMarketParsers/"
+baseFolderPathMac = "/Users/"+(username.strip()).decode("utf-8")+"/Documents/DarknetMarketParsers/"
 parserFolderPath = ""
 logfilePath = ""
 def writelog(message):
@@ -31,6 +31,8 @@ def runParser(fileName):
     return (fileName, status)
 
 if __name__ == "__main__":
+
+    ## for vendor profiles
     vendorProfileRelatedFiles = ["vendor_profiles_bitbazar.py", "vendor_profiles_whitehouse.py", "vendor_profiles_agartha.py"]
     vp = multiprocessing.Pool()
     result = vp.map(runParser, vendorProfileRelatedFiles)
@@ -38,6 +40,7 @@ if __name__ == "__main__":
     for record in result:
         print(record[0] + "\t" + str(record[1]))
 
+    ## for product descriptions
     productDescriptionsRelatedFiles = ["product_descriptions_agartha.py", "product_descriptions_bitbazer.py"]
     pd = multiprocessing.Pool()
     resultPD = pd.map(runParser, productDescriptionsRelatedFiles)
@@ -45,6 +48,7 @@ if __name__ == "__main__":
     for record in result:
         print(record[0] + "\t" + str(record[1]))
 
+    ## for product ratings
     productRatingsRelatedFiles = []
     pr = multiprocessing.Pool()
     resultPR = pr.map(runParser, productDescriptionsRelatedFiles)
@@ -52,6 +56,7 @@ if __name__ == "__main__":
     for record in result:
         print(record[0] + "\t" + str(record[1]))
 
+    ## for vendor ratings
     vendorRatingRelatedFiles = ["vendor_ratings_bitbazar.py",
                                    "vendor_ratings_whitehouse.py", "vendor_ratings_apollon.py"]
     vr = multiprocessing.Pool()
