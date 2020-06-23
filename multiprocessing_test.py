@@ -59,7 +59,7 @@ def runVendorProfiles():
     print("*************************vendor profiles******************************")
     vendorProfileRelatedFiles = ["vendor_profiles_square.py", "vendor_profiles_bitbazar.py",
                                  "vendor_profiles_whitehouse.py", "vendor_profiles_agartha.py",
-                                 "vendor_profiles_apollon.py"]
+                                 "vendor_profiles_apollon.py", "vendor_profiles_elite.py"]
     vp = multiprocessing.Pool()
     result = vp.map(runParser, vendorProfileRelatedFiles)
     for record in result:
@@ -69,7 +69,7 @@ def runVendorProfiles():
 def runVendorRatings():
     print("*************************vendor ratings******************************")
     vendorRatingRelatedFiles = ["vendor_ratings_bitbazar.py", "vendor_ratings_square.py",
-                                "vendor_ratings_whitehouse.py","vendor_ratings_apollon.py"
+                                "vendor_ratings_whitehouse.py","vendor_ratings_apollon.py",
                                 "vendor_ratings_agartha.py"]
     vr = multiprocessing.Pool()
     result = vr.map(runParser, vendorRatingRelatedFiles)
