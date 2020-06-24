@@ -37,7 +37,7 @@ def runProductDescriptions():
     print("*************************product descriptions******************************")
     productDescriptionsRelatedFiles = ["product_descriptions_apollon.py","product_descriptions_whitehouse.py",
                                        "product_descriptions_square.py","product_descriptions_agartha.py",
-                                       "product_descriptions_bitbazer.py"]
+                                       "product_descriptions_bitbazer.py", "product_descriptions_elite.py"]
     pd = multiprocessing.Pool()
     result = pd.map(runParser, productDescriptionsRelatedFiles)
     for record in result:
