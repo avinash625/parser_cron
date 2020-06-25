@@ -48,7 +48,7 @@ def runProductRatings():
     print("*************************product ratings******************************")
     #WH market doesn't have product ratings as of now.
     productRatingsRelatedFiles = ["product_ratings_square.py", "product_ratings_bitbazar.py",
-                                  "product_ratings_apollon.py"]
+                                  "product_ratings_apollon.py", "product_ratings_elite.py"]
     pr = multiprocessing.Pool()
     result = pr.map(runParser, productRatingsRelatedFiles)
     for record in result:
