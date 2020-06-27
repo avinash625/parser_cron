@@ -2,6 +2,8 @@ import multiprocessing
 import os
 import subprocess
 import platform
+from sendEmail import sendEmail
+import pprint
 
 # fetch username from system service "whoami".
 process = subprocess.Popen("whoami",stdout = subprocess.PIPE)
@@ -12,7 +14,7 @@ baseFolderPathUbuntu = "/home/"+ (username.strip()).decode('utf-8') +"/WB/Darkne
 baseFolderPathMac = "/Users/"+(username.strip()).decode("utf-8")+"/Documents/ebcs_workspace/DarknetMarketParsers/"
 parserFolderPath = ""
 logfilePath = ""
-
+listedMarkets = ["agartha","bitbazar","whitehouse","square","apollon","elite"]
 
 if platform.system() == "Darwin":
     parserFolderPath = baseFolderPathMac
@@ -33,62 +35,67 @@ def runParser(fileName):
     # print("worker ID for "+ fileName +"  exited with status ", status)
     return (fileName, status)
 
-def runProductDescriptions():
+def runProductDescriptions(result):
     print("*************************product descriptions******************************")
     productDescriptionsRelatedFiles = ["product_descriptions_apollon.py","product_descriptions_whitehouse.py",
                                        "product_descriptions_square.py","product_descriptions_agartha.py",
-                                       "product_descriptions_bitbazer.py", "product_descriptions_elite.py"]
+                                       "product_descriptions_bitbazar.py", "product_descriptions_elite.py"]
     pd = multiprocessing.Pool()
-    result = pd.map(runParser, productDescriptionsRelatedFiles)
-    for record in result:
-        print(record[0] + "\t" + str(record[1]))
+    processStatusList = pd.map(runParser, productDescriptionsRelatedFiles)
+    for record in processStatusList:
+        result[record[0].partition("ons_")[2][:-3]]["productDescriptions"] =  str(record[1])
     return result
 
-def runProductRatings():
+def runProductRatings(result):
     print("*************************product ratings******************************")
     #WH market doesn't have product ratings as of now.
     productRatingsRelatedFiles = ["product_ratings_square.py", "product_ratings_bitbazar.py",
                                   "product_ratings_apollon.py", "product_ratings_elite.py"]
     pr = multiprocessing.Pool()
-    result = pr.map(runParser, productRatingsRelatedFiles)
-    for record in result:
-        print(record[0] + "\t" + str(record[1]))
+    processStatusList = pr.map(runParser, productRatingsRelatedFiles)
+    for record in processStatusList:
+        result[record[0].partition("ngs_")[2][:-3]]["productRatings"] = str(record[1])
     return result
 
-def runVendorProfiles():
+def runVendorProfiles(result):
     print("*************************vendor profiles******************************")
     vendorProfileRelatedFiles = ["vendor_profiles_square.py", "vendor_profiles_bitbazar.py",
                                  "vendor_profiles_whitehouse.py", "vendor_profiles_agartha.py",
                                  "vendor_profiles_apollon.py", "vendor_profiles_elite.py"]
     vp = multiprocessing.Pool()
-    result = vp.map(runParser, vendorProfileRelatedFiles)
-    for record in result:
-        print(record[0] + "\t" + str(record[1]))
+    processStatusList = vp.map(runParser, vendorProfileRelatedFiles)
+    for record in processStatusList:
+        result[record[0].partition("les_")[2][:-3]]["vendorProfiles"] = str(record[1])
     return result
 
-def runVendorRatings():
+def runVendorRatings(result):
     print("*************************vendor ratings******************************")
     vendorRatingRelatedFiles = ["vendor_ratings_bitbazar.py", "vendor_ratings_square.py",
                                 "vendor_ratings_whitehouse.py","vendor_ratings_apollon.py",
                                 "vendor_ratings_agartha.py", "vendor_ratings_elite.py"]
     vr = multiprocessing.Pool()
-    result = vr.map(runParser, vendorRatingRelatedFiles)
-    for record in result:
-        print(record[0] + "\t" + str(record[1]))
+    processStatusList = vr.map(runParser, vendorRatingRelatedFiles)
+    for record in processStatusList:
+        result[record[0].partition("ngs_")[2][:-3]]["vendorRatings"] = str(record[1])
     return result
 
 def runParserUtility():
-    vendorProfiles = runVendorProfiles()
-    productDescriptions = runProductDescriptions()
-    vendorRatings = runVendorRatings()
-    productRatings = runProductRatings()
+    result = getDefaultResultSet()
+    result = runVendorProfiles(result)
+    result = runProductDescriptions(result)
+    result = runVendorRatings(result)
+    result = runProductRatings(result)
 
-    return [productDescriptions, productRatings, vendorProfiles, vendorRatings]
+    return result
 
-def sendEmail(combinedValues):
-    print("combined values are ")
-    print(combinedValues)
+def getDefaultResultSet():
+    global listedMarkets
+    result = {}
+    for market in listedMarkets:
+        result.update({market:{"productDescriptions": "NA", "productRatings":"NA", "vendorProfiles":"NA", "vendorRatings":"NA"}})
+    return result
 
 if __name__ == "__main__":
-    combinedValues = runParserUtility()
-    sendEmail(combinedValues)
+    parsersResult = runParserUtility()
+    sendEmail(parsersResult)
+    pprint.pprint(parsersResult,indent=4)
