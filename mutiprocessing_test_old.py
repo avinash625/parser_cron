@@ -10,11 +10,11 @@ process = subprocess.Popen("whoami",stdout = subprocess.PIPE)
 username, error = process.communicate()
 
 #set some constants values.
-baseFolderPathUbuntu = "/home/"+ (username.strip()).decode('utf-8') +"/WB/DarknetMarketParsers/"
+baseFolderPathUbuntu = "/home/"+ (username.strip()).decode('utf-8') +"/workbench/DarknetMarketParsers/"
 baseFolderPathMac = "/Users/"+(username.strip()).decode("utf-8")+"/Documents/ebcs_workspace/DarknetMarketParsers/"
 parserFolderPath = ""
 logfilePath = ""
-listedMarkets = ["agartha","bitbazar","whitehouse","square","apollon","elite"]
+listedMarkets = ["agartha","bitbazar","whitehouse","square","apollon","elite","icarus"]
 
 if platform.system() == "Darwin":
     parserFolderPath = baseFolderPathMac
@@ -61,7 +61,8 @@ def runVendorProfiles(result):
     print("*************************vendor profiles******************************")
     vendorProfileRelatedFiles = ["vendor_profiles_square.py", "vendor_profiles_bitbazar.py",
                                  "vendor_profiles_whitehouse.py", "vendor_profiles_agartha.py",
-                                 "vendor_profiles_apollon.py", "vendor_profiles_elite.py"]
+                                 "vendor_profiles_apollon.py", "vendor_profiles_elite.py",
+                                 "vendor_profiles_icarus.py"]
     vp = multiprocessing.Pool()
     processStatusList = vp.map(runParser, vendorProfileRelatedFiles)
     for record in processStatusList:
