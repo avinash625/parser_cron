@@ -14,7 +14,7 @@ baseFolderPathUbuntu = "/home/"+ (username.strip()).decode('utf-8') +"/workbench
 baseFolderPathMac = "/Users/"+(username.strip()).decode("utf-8")+"/Documents/ebcs_workspace/DarknetMarketParsers/"
 parserFolderPath = ""
 logfilePath = ""
-listedMarkets = ["agartha","bitbazar","whitehouse","square","apollon","elite","icarus"]
+listedMarkets = ["agartha","bitbazar","whitehouse","square","apollon","elite","icarus","cryptonia"]
 
 if platform.system() == "Darwin":
     parserFolderPath = baseFolderPathMac
@@ -39,7 +39,8 @@ def runProductDescriptions(result):
     print("*************************product descriptions******************************")
     productDescriptionsRelatedFiles = ["product_descriptions_apollon.py","product_descriptions_whitehouse.py",
                                        "product_descriptions_square.py","product_descriptions_agartha.py",
-                                       "product_descriptions_bitbazar.py", "product_descriptions_elite.py"]
+                                       "product_descriptions_bitbazar.py", "product_descriptions_elite.py",
+                                       "product_descriptions_cryptonia.py"]
     pd = multiprocessing.Pool()
     processStatusList = pd.map(runParser, productDescriptionsRelatedFiles)
     for record in processStatusList:
@@ -50,7 +51,8 @@ def runProductRatings(result):
     print("*************************product ratings******************************")
     #WH market doesn't have product ratings as of now.
     productRatingsRelatedFiles = ["product_ratings_square.py", "product_ratings_bitbazar.py",
-                                  "product_ratings_apollon.py", "product_ratings_elite.py"]
+                                  "product_ratings_apollon.py", "product_ratings_elite.py",
+                                  "product_ratings_cryptonia.py"]
     pr = multiprocessing.Pool()
     processStatusList = pr.map(runParser, productRatingsRelatedFiles)
     for record in processStatusList:
@@ -62,7 +64,7 @@ def runVendorProfiles(result):
     vendorProfileRelatedFiles = ["vendor_profiles_square.py", "vendor_profiles_bitbazar.py",
                                  "vendor_profiles_whitehouse.py", "vendor_profiles_agartha.py",
                                  "vendor_profiles_apollon.py", "vendor_profiles_elite.py",
-                                 "vendor_profiles_icarus.py"]
+                                 "vendor_profiles_icarus.py", "vendor_profiles_cryptonia.py"]
     vp = multiprocessing.Pool()
     processStatusList = vp.map(runParser, vendorProfileRelatedFiles)
     for record in processStatusList:
@@ -73,7 +75,8 @@ def runVendorRatings(result):
     print("*************************vendor ratings******************************")
     vendorRatingRelatedFiles = ["vendor_ratings_bitbazar.py", "vendor_ratings_square.py",
                                 "vendor_ratings_whitehouse.py","vendor_ratings_apollon.py",
-                                "vendor_ratings_agartha.py", "vendor_ratings_elite.py"]
+                                "vendor_ratings_agartha.py", "vendor_ratings_elite.py",
+                                "vendor_ratings_cryptonia.py"]
     vr = multiprocessing.Pool()
     processStatusList = vr.map(runParser, vendorRatingRelatedFiles)
     for record in processStatusList:
