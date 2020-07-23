@@ -14,7 +14,7 @@ baseFolderPathUbuntu = "/home/"+ (username.strip()).decode('utf-8') +"/workbench
 baseFolderPathMac = "/Users/"+(username.strip()).decode("utf-8")+"/Documents/ebcs_workspace/DarknetMarketParsers/"
 parserFolderPath = ""
 logfilePath = ""
-listedMarkets = ["agartha","bitbazar","whitehouse","square","apollon","elite","icarus","cryptonia", "asean"]
+listedMarkets = ["agartha","bitbazar","whitehouse","square","apollon","elite","icarus","cryptonia", "asean","amazin","darkode","darkfox","darkbay","darknet"]
 
 if platform.system() == "Darwin":
     parserFolderPath = baseFolderPathMac
