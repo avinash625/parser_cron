@@ -14,7 +14,7 @@ baseFolderPathUbuntu = "/home/"+ (username.strip()).decode('utf-8') +"/workbench
 baseFolderPathMac = "/Users/"+(username.strip()).decode("utf-8")+"/Documents/ebcs_workspace/DarknetMarketParsers/"
 parserFolderPath = ""
 logfilePath = ""
-listedMarkets = ["agartha","bitbazar","whitehouse","square","apollon","elite","icarus","cryptonia"]
+listedMarkets = ["agartha","bitbazar","whitehouse","square","apollon","elite","icarus","cryptonia", "asean"]
 
 if platform.system() == "Darwin":
     parserFolderPath = baseFolderPathMac
@@ -40,7 +40,10 @@ def runProductDescriptions(result):
     productDescriptionsRelatedFiles = ["product_descriptions_apollon.py","product_descriptions_whitehouse.py",
                                        "product_descriptions_square.py","product_descriptions_agartha.py",
                                        "product_descriptions_bitbazar.py", "product_descriptions_elite.py",
-                                       "product_descriptions_cryptonia.py"]
+                                       "product_descriptions_cryptonia.py", "product_descriptions_asean.py",
+                                       "product_descriptions_amazin.py","product_descriptions_darkbay.py",
+                                       "product_descriptions_darkfox.py","product_descriptions_darknet.py",
+                                       "product_descriptions_darkode.py","product_descriptions_deeppaste"]
     pd = multiprocessing.Pool()
     processStatusList = pd.map(runParser, productDescriptionsRelatedFiles)
     for record in processStatusList:
@@ -52,7 +55,9 @@ def runProductRatings(result):
     #WH market doesn't have product ratings as of now.
     productRatingsRelatedFiles = ["product_ratings_square.py", "product_ratings_bitbazar.py",
                                   "product_ratings_apollon.py", "product_ratings_elite.py",
-                                  "product_ratings_cryptonia.py"]
+                                  "product_ratings_cryptonia.py", "product_ratings_asean.py",
+                                  "product_ratings_amazin.py","product_ratings_darkbay.py",
+                                  "product_ratings_darkfox.py","product_ratings_darknet.py"]
     pr = multiprocessing.Pool()
     processStatusList = pr.map(runParser, productRatingsRelatedFiles)
     for record in processStatusList:
@@ -64,7 +69,10 @@ def runVendorProfiles(result):
     vendorProfileRelatedFiles = ["vendor_profiles_square.py", "vendor_profiles_bitbazar.py",
                                  "vendor_profiles_whitehouse.py", "vendor_profiles_agartha.py",
                                  "vendor_profiles_apollon.py", "vendor_profiles_elite.py",
-                                 "vendor_profiles_icarus.py", "vendor_profiles_cryptonia.py"]
+                                 "vendor_profiles_icarus.py", "vendor_profiles_cryptonia.py",
+                                 "vendor_profiles_asean.py","vendor_profiles_dark0de.py",
+                                 "vendor_profiles_darkbay.py","vendor_profiles_darkfox.py",
+                                 "vendor_profiles_darknet.py"]
     vp = multiprocessing.Pool()
     processStatusList = vp.map(runParser, vendorProfileRelatedFiles)
     for record in processStatusList:
@@ -76,7 +84,9 @@ def runVendorRatings(result):
     vendorRatingRelatedFiles = ["vendor_ratings_bitbazar.py", "vendor_ratings_square.py",
                                 "vendor_ratings_whitehouse.py","vendor_ratings_apollon.py",
                                 "vendor_ratings_agartha.py", "vendor_ratings_elite.py",
-                                "vendor_ratings_cryptonia.py"]
+                                "vendor_ratings_cryptonia.py", "vendor_ratings_asean.py",
+                                "vendor_ratings_darkbay.py","vendor_ratings_darkfox.py",
+                                "vendor_Ratings_darknet.py"]
     vr = multiprocessing.Pool()
     processStatusList = vr.map(runParser, vendorRatingRelatedFiles)
     for record in processStatusList:
