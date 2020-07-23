@@ -70,7 +70,7 @@ def runVendorProfiles(result):
                                  "vendor_profiles_whitehouse.py", "vendor_profiles_agartha.py",
                                  "vendor_profiles_apollon.py", "vendor_profiles_elite.py",
                                  "vendor_profiles_icarus.py", "vendor_profiles_cryptonia.py",
-                                 "vendor_profiles_asean.py","vendor_profiles_dark0de.py",
+                                 "vendor_profiles_asean.py","vendor_profiles_darkode.py",
                                  "vendor_profiles_darkbay.py","vendor_profiles_darkfox.py",
                                  "vendor_profiles_darknet.py"]
     vp = multiprocessing.Pool()
